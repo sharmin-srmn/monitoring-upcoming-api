@@ -36,7 +36,7 @@ handler._token.post = (requestedProperties, callback) =>{
 
                     const tokenObject = {
                         phone,
-                        id: tokenID,
+                        tokenID,
                         expires
                     }
                     data.createData('tokens', tokenID, tokenObject, (errorCreating) => {
@@ -69,9 +69,9 @@ handler._token.post = (requestedProperties, callback) =>{
 }
 //GET TOKEN DETAILS
 handler._token.get = (requestedProperties, callback) =>{
-    const id = typeof(requestedProperties.query.id) === 'string' && requestedProperties.query.id.trim().length === 20 ? requestedProperties.query.id : false;
-    if(id){
-        data.readData('tokens', id, (errorReading, tokendata) =>{
+    const tokenID = typeof(requestedProperties.query.tokenID) === 'string' && requestedProperties.query.tokenID.trim().length === 20 ? requestedProperties.query.tokenID : false;
+    if(tokenID){
+        data.readData('tokens', tokenID, (errorReading, tokendata) =>{
             if(!errorReading && tokendata){
                 const tokendetails = {...jsonParse(tokendata)};
                 callback(200,tokendetails);
@@ -91,17 +91,17 @@ handler._token.get = (requestedProperties, callback) =>{
 
 //UPDATE THE TOKEN
 handler._token.put = (requestedProperties, callback) =>{
-    const id = typeof(requestedProperties.body.id) === 'string' && requestedProperties.body.id.trim().length === 20 ? requestedProperties.body.id : false;
+    const tokenID = typeof(requestedProperties.body.tokenID) === 'string' && requestedProperties.body.tokenID.trim().length === 20 ? requestedProperties.body.tokenID : false;
     const extend = typeof(requestedProperties.body.extend) === 'boolean' && requestedProperties.body.extend === true ? requestedProperties.body.extend : false;
-    if(id && extend){
-        data.readData('tokens', id, (errorReading, tokendata )=>{
+    if(tokenID && extend){
+        data.readData('tokens', tokenID, (errorReading, tokendata )=>{
             if(!errorReading && tokendata){
                 const tokenDetails = jsonParse(tokendata);
                 //CHECK IF TOKEN ALREADY EXPIRED OR NOT
                 if(tokenDetails.expires > Date.now()){
                     tokenDetails.expires = Date.now() + 60 * 60 * 1000;
                     //UPDATE THE EXPIRY TIME
-                    data.updateData('tokens', id, tokenDetails, (errorUpdating)=>{
+                    data.updateData('tokens', tokenID, tokenDetails, (errorUpdating)=>{
                         if(!errorUpdating){
                             callback(200,{
                                 message : 'Succesfully updated The Expiry Time. '
@@ -132,11 +132,11 @@ handler._token.put = (requestedProperties, callback) =>{
 
 //DELETE TOKEN
 handler._token.delete = (requestedProperties, callback) =>{
-    const id = typeof(requestedProperties.query.id) === 'string' && requestedProperties.query.id.trim().length === 20 ? requestedProperties.query.id : false;
-    if(id){
-        data.readData('tokens', id, (errorReading, tokendata) =>{
+    const tokenID = typeof(requestedProperties.query.tokenID) === 'string' && requestedProperties.query.tokenID.trim().length === 20 ? requestedProperties.query.tokenID : false;
+    if(tokenID){
+        data.readData('tokens', tokenID, (errorReading, tokendata) =>{
             if(!errorReading && tokendata ){
-                data.deleteData('tokens', id, (errorDeleting)=>{
+                data.deleteData('tokens', tokenID, (errorDeleting)=>{
                     if(!errorDeleting){
                         callback(200, {
                             message : 'Successfully deleted the token.'
@@ -161,9 +161,9 @@ handler._token.delete = (requestedProperties, callback) =>{
 }
 
 //VERIFY USER
-handler._token.verifyToken = (id, phone, callback)=>{
+handler._token.verifyToken = (tokenID, phone, callback)=>{
     //
-    data.readData('tokens', id, (errorReading, tokendata) =>{
+    data.readData('tokens', tokenID, (errorReading, tokendata) =>{
         if(!errorReading && tokendata){
             if(jsonParse(tokendata).phone === phone && jsonParse(tokendata).expires > Date.now()){
                 callback(true);

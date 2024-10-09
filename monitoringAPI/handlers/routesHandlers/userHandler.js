@@ -92,8 +92,8 @@ handler._user.get = (requestedProperties, callback) =>{
         tokenHandler._token.verifyToken(id, phone, (response) =>{
             if(response){
                  //READ THE FILE
-                data.readData('users', phone, (error, udata)=>{//AMR READ DATA THEKE ERROR ANAD DATA DUITAI PABO
-                    if( !error && udata ){
+                data.readData('users', phone, (errorReading, udata)=>{//AMR READ DATA THEKE ERROR ANAD DATA DUITAI PABO
+                    if( !errorReading && udata ){
                         const userdata = { ...jsonParse(udata) };
                         delete userdata.password;
                         callback(200, userdata);
@@ -196,8 +196,8 @@ handler._user.delete = (requestedProperties, callback) =>{
             if(response){
                 data.readData('users', phone, (errorReading, udata)=>{
                     if(!errorReading  && udata){
-                        data.deleteData('users', phone, (error) =>{
-                            if(!error){
+                        data.deleteData('users', phone, (errorDeleting) =>{
+                            if(!errorDeleting){
                                 callback(200, {
                                     message : 'Successfully deleted user.'
                                 });
