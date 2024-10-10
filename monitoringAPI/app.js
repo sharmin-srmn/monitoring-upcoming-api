@@ -8,6 +8,7 @@ const lib = require('./lib/data.js')
 // MODULE SCAFFOLDING
 const app = {};
 
+
 //CRETAING DATA
 // lib.createData('test', 'mytext', {name: 'sharmin', age : '30'}, (error)=>{
 //     console.log(error);
