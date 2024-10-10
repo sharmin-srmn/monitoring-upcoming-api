@@ -4,13 +4,17 @@ const environments = {};
 environments.staging = {
     port : 3000, 
     envName : 'staging',
-    secretKey : 'hahgjdfgsdhgriushfkjsd'
+    secretKey : 'hahgjdfgsdhgriushfkjsd',
+    // secretKey : process.env.SECRET_KEY,
+    maxLimit : 5
 }
 
 environments.production = {
     port : 5000, 
     envName : 'production',
-    secretKey : 'usfyiew658734ytlkdrsjyt85w'
+    secretKey : 'usfyiew658734ytlkdrsjyt85w',
+    // secretKey : process.env.SECRET_KEY,
+    maxLimit : 5
 }
 
 //CURRENT ENVIROMNET

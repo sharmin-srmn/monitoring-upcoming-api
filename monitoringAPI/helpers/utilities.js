@@ -17,6 +17,7 @@ utilities.jsonParse = (stringData) =>{
     return jsonObjData;
 }
 
+
 //FUNCTION FOR HASHING PASSWORD
 utilities.hash = (normalPassword) =>{
     //IF PASSWORD VALID THEN HASH IT
