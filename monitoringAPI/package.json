@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=staging nodemon app.js",
-    "production": "cross-env NODE_ENV=production nodemon app.js"
+    "start": "cross-env NODE_ENV=staging SECRET_KEY=hahgjdfgsdhgriushfkjsd nodemon app.js",
+    "production": "cross-env NODE_ENV=production SECRET_KEY=usfyiew658734ytlkdrsjyt85w nodemon app.js"
   },
   "keywords": [],
   "author": "",
